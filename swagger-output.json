@@ -5,7 +5,7 @@
     "description": "CSE 341 Week 03 - Full CRUD REST API for Movies and Actors collections",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-movies-p1iw.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -18,7 +18,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
