@@ -1,0 +1,95 @@
+### Variables - change BASE_URL when deployed to Render
+@BASE_URL = http://localhost:8080
+@MOVIE_ID = REPLACE_WITH_REAL_ID
+@ACTOR_ID = REPLACE_WITH_REAL_ID
+
+### ─────────────────────────────────────
+###  MOVIES
+### ─────────────────────────────────────
+
+### GET all movies
+GET {{BASE_URL}}/movies
+
+###
+
+### GET movie by ID
+GET {{BASE_URL}}/movies/{{MOVIE_ID}}
+
+###
+
+### POST - Create a new movie
+POST {{BASE_URL}}/movies
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "year": 2010,
+  "genre": "Sci-Fi",
+  "director": "Christopher Nolan",
+  "rating": 8.8,
+  "duration": 148,
+  "language": "English",
+  "synopsis": "A thief who steals corporate secrets through the use of dream-sharing technology.",
+  "posterUrl": "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
+}
+
+###
+
+### PUT - Update a movie
+PUT {{BASE_URL}}/movies/{{MOVIE_ID}}
+Content-Type: application/json
+
+{
+  "rating": 9.0,
+  "synopsis": "Updated synopsis for Inception."
+}
+
+###
+
+### DELETE - Delete a movie
+DELETE {{BASE_URL}}/movies/{{MOVIE_ID}}
+
+###
+
+### ─────────────────────────────────────
+###  ACTORS
+### ─────────────────────────────────────
+
+### GET all actors
+GET {{BASE_URL}}/actors
+
+###
+
+### GET actor by ID
+GET {{BASE_URL}}/actors/{{ACTOR_ID}}
+
+###
+
+### POST - Create a new actor
+POST {{BASE_URL}}/actors
+Content-Type: application/json
+
+{
+  "name": "Leonardo DiCaprio",
+  "birthDate": "1974-11-11",
+  "nationality": "American",
+  "biography": "American actor and film producer known for his work in biographical and period films.",
+  "knownFor": "Inception, Titanic, The Revenant, The Wolf of Wall Street",
+  "awards": "Academy Award for Best Actor (2016), Golden Globe Awards",
+  "isActive": true
+}
+
+###
+
+### PUT - Update an actor
+PUT {{BASE_URL}}/actors/{{ACTOR_ID}}
+Content-Type: application/json
+
+{
+  "biography": "Updated biography for Leonardo DiCaprio."
+}
+
+###
+
+### DELETE - Delete an actor
+DELETE {{BASE_URL}}/actors/{{ACTOR_ID}}

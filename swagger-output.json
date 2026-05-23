@@ -1,0 +1,457 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Movies & Actors API",
+    "description": "CSE 341 Week 03 - Full CRUD REST API for Movies and Actors collections",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Movies",
+      "description": "CRUD operations for the movies collection"
+    },
+    {
+      "name": "Actors",
+      "description": "CRUD operations for the actors collection"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/movies/": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get all movies",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Create a new movie",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Movie data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Inception"
+                },
+                "year": {
+                  "type": "number",
+                  "example": 2010
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "Sci-Fi"
+                },
+                "director": {
+                  "type": "string",
+                  "example": "Christopher Nolan"
+                },
+                "rating": {
+                  "type": "number",
+                  "example": 8.8
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 148
+                },
+                "language": {
+                  "type": "string",
+                  "example": "English"
+                },
+                "synopsis": {
+                  "type": "string",
+                  "example": "A thief who steals corporate secrets..."
+                },
+                "posterUrl": {
+                  "type": "string",
+                  "example": "https://example.com/poster.jpg"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get a single movie by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Update a movie by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fields to update (all optional)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Inception"
+                },
+                "year": {
+                  "type": "number",
+                  "example": 2010
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "Sci-Fi"
+                },
+                "director": {
+                  "type": "string",
+                  "example": "Christopher Nolan"
+                },
+                "rating": {
+                  "type": "number",
+                  "example": 8.8
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 148
+                },
+                "language": {
+                  "type": "string",
+                  "example": "English"
+                },
+                "synopsis": {
+                  "type": "string",
+                  "example": "Updated synopsis..."
+                },
+                "posterUrl": {
+                  "type": "string",
+                  "example": "https://example.com/poster.jpg"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Delete a movie by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/actors/": {
+      "get": {
+        "tags": [
+          "Actors"
+        ],
+        "summary": "Get all actors",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Actors"
+        ],
+        "summary": "Create a new actor",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Actor data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Leonardo DiCaprio"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "example": "1974-11-11"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "American"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "American actor and film producer..."
+                },
+                "knownFor": {
+                  "type": "string",
+                  "example": "Inception, Titanic, The Revenant"
+                },
+                "awards": {
+                  "type": "string",
+                  "example": "Academy Award for Best Actor (2016)"
+                },
+                "isActive": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/actors/{id}": {
+      "get": {
+        "tags": [
+          "Actors"
+        ],
+        "summary": "Get a single actor by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Actors"
+        ],
+        "summary": "Update an actor by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fields to update (all optional)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Leonardo DiCaprio"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "example": "1974-11-11"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "American"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Updated biography..."
+                },
+                "knownFor": {
+                  "type": "string",
+                  "example": "Inception, Titanic"
+                },
+                "awards": {
+                  "type": "string",
+                  "example": "Academy Award for Best Actor"
+                },
+                "isActive": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Actors"
+        ],
+        "summary": "Delete an actor by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
