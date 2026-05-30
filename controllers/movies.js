@@ -35,6 +35,7 @@ const getMovieById = async (req, res) => {
 const createMovie = async (req, res) => {
   // #swagger.tags = ['Movies']
   // #swagger.summary = 'Create a new movie'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Movie data',
@@ -94,6 +95,7 @@ const createMovie = async (req, res) => {
 const updateMovie = async (req, res) => {
   // #swagger.tags = ['Movies']
   // #swagger.summary = 'Update a movie by ID'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Fields to update (all optional)',
@@ -159,6 +161,7 @@ const updateMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
   // #swagger.tags = ['Movies']
   // #swagger.summary = 'Delete a movie by ID'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   try {
     const { id } = req.params;
     if (!ObjectId.isValid(id)) {

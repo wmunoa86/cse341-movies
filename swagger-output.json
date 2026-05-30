@@ -2,12 +2,16 @@
   "swagger": "2.0",
   "info": {
     "title": "Movies & Actors API",
-    "description": "CSE 341 Week 03 - Full CRUD REST API for Movies and Actors collections",
+    "description": "CSE 341 Week 04 - Full CRUD REST API for Movies and Actors with Google OAuth authentication.\n\n**Authentication flow:**\n1. Visit `GET /auth/google` to log in with your Google account.\n2. After login, your session cookie is set automatically.\n3. Use the Swagger UI normally — the session cookie is sent with each request.\n4. Visit `GET /auth/logout` to end your session.\n\n**Protected routes** (require login): POST, PUT, DELETE on /movies and /actors.\n**Public routes**: GET on /movies and /actors, all /auth endpoints.",
     "version": "1.0.0"
   },
-  "host": "cse341-movies-p1iw.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "tags": [
+    {
+      "name": "Auth",
+      "description": "Google OAuth login, logout, and session status"
+    },
     {
       "name": "Movies",
       "description": "CRUD operations for the movies collection"
@@ -18,8 +22,19 @@
     }
   ],
   "schemes": [
-    "https"
+    "http"
   ],
+  "securityDefinitions": {
+    "GoogleOAuth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "flow": "implicit",
+      "scopes": {
+        "profile": "Read your Google profile",
+        "email": "Read your Google email address"
+      }
+    }
+  },
   "paths": {
     "/": {
       "get": {
@@ -109,10 +124,21 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
       }
     },
     "/movies/{id}": {
@@ -212,13 +238,24 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -241,13 +278,24 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
       }
     },
     "/actors/": {
@@ -320,10 +368,21 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
       }
     },
     "/actors/{id}": {
@@ -415,13 +474,24 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -444,11 +514,78 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "GoogleOAuth": [
+              "profile",
+              "email"
+            ]
+          }
+        ]
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Initiate Google OAuth login",
+        "description": "Redirects the user to Google for authentication.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Google OAuth callback",
+        "description": "Google redirects here after authentication. Sets session cookie on success.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Log out the current user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/status": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Check authentication status",
+        "description": "Returns whether the current session is authenticated and who is logged in.",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

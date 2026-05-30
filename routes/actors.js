@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isAuthenticated } = require('../middleware/auth');
 const {
   getAllActors,
   getActorById,
@@ -10,8 +11,8 @@ const {
 
 router.get('/', getAllActors);
 router.get('/:id', getActorById);
-router.post('/', createActor);
-router.put('/:id', updateActor);
-router.delete('/:id', deleteActor);
+router.post('/', isAuthenticated, createActor);
+router.put('/:id', isAuthenticated, updateActor);
+router.delete('/:id', isAuthenticated, deleteActor);
 
 module.exports = router;

@@ -35,6 +35,7 @@ const getActorById = async (req, res) => {
 const createActor = async (req, res) => {
   // #swagger.tags = ['Actors']
   // #swagger.summary = 'Create a new actor'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Actor data',
@@ -84,6 +85,7 @@ const createActor = async (req, res) => {
 const updateActor = async (req, res) => {
   // #swagger.tags = ['Actors']
   // #swagger.summary = 'Update an actor by ID'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Fields to update (all optional)',
@@ -142,6 +144,7 @@ const updateActor = async (req, res) => {
 const deleteActor = async (req, res) => {
   // #swagger.tags = ['Actors']
   // #swagger.summary = 'Delete an actor by ID'
+  // #swagger.security = [{ "GoogleOAuth": ["profile", "email"] }]
   try {
     const { id } = req.params;
     if (!ObjectId.isValid(id)) {

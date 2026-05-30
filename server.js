@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { connectDB } = require('./db/connect');
 const routes = require('./routes/index');
 const swaggerUi = require('swagger-ui-express');
@@ -9,6 +12,36 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
+
+passport.use(new GoogleStrategy(
+  {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL || 'http://localhost:8080/auth/google/callback'
+  },
+  (_accessToken, _refreshToken, profile, done) => {
+    const user = {
+      googleId: profile.id,
+      displayName: profile.displayName,
+      email: profile.emails?.[0]?.value
+    };
+    return done(null, user);
+  }
+));
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', routes);
 

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isAuthenticated } = require('../middleware/auth');
 const {
   getAllMovies,
   getMovieById,
@@ -10,8 +11,8 @@ const {
 
 router.get('/', getAllMovies);
 router.get('/:id', getMovieById);
-router.post('/', createMovie);
-router.put('/:id', updateMovie);
-router.delete('/:id', deleteMovie);
+router.post('/', isAuthenticated, createMovie);
+router.put('/:id', isAuthenticated, updateMovie);
+router.delete('/:id', isAuthenticated, deleteMovie);
 
 module.exports = router;
