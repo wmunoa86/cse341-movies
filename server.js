@@ -11,13 +11,19 @@ const swaggerDocument = require('./swagger-output.json');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.set('trust proxy', 1);
 app.use(express.json());
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production' }
+  cookie: {
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
 }));
 
 passport.use(new GoogleStrategy(
