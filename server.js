@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { connectDB } = require('./db/connect');
@@ -18,7 +17,6 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback-secret',
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
