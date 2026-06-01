@@ -5,7 +5,7 @@
     "description": "CSE 341 Week 04 - Full CRUD REST API for Movies and Actors with Google OAuth authentication.\n\n**Authentication flow:**\n1. Visit `GET /auth/google` to log in with your Google account.\n2. After login, your session cookie is set automatically.\n3. Use the Swagger UI normally — the session cookie is sent with each request.\n4. Visit `GET /auth/logout` to end your session.\n\n**Protected routes** (require login): POST, PUT, DELETE on /movies and /actors.\n**Public routes**: GET on /movies and /actors, all /auth endpoints.",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-movies-p1iw.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -22,7 +22,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "GoogleOAuth": {
